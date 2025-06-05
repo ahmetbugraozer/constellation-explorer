@@ -636,6 +636,28 @@ function setupEventListeners() {
     
     // Keyboard controls
     document.addEventListener('keydown', handleKeyboard);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+        
+        // Show menu toggle on mobile
+        if (window.innerWidth <= 1024) {
+            menuToggle.style.display = 'block';
+        }
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 1024) {
+                menuToggle.style.display = 'block';
+            } else {
+                menuToggle.style.display = 'none';
+                document.querySelector('.sidebar').classList.remove('open');
+            }
+        });
+    }
 }
 
 function setupSettingsListeners() {
