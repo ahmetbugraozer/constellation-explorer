@@ -1,0 +1,703 @@
+/* ===== CSS Variables ===== */
+:root {
+    --primary-bg: #000000;
+    --secondary-bg: #0a0a1a;
+    --accent-color: #1e3a8a;
+    --accent-light: #60a5fa;
+    --text-primary: #e0e7ff;
+    --text-secondary: #94a3b8;
+    --star-glow: #ffffff;
+    --constellation-line: #60a5fa;
+    --grid-color: rgba(255, 255, 255, 0.05);
+    --shadow-dark: rgba(0, 0, 0, 0.8);
+    --shadow-light: rgba(255, 255, 255, 0.1);
+    --transition-speed: 0.3s;
+}
+
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Mono', monospace;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    overflow: hidden;
+    transition: background-color var(--transition-speed);
+}
+
+/* ===== Loading Screen ===== */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #0a0a1a 0%, #000000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease-out;
+}
+
+.loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.stars-loader {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate3d 4s linear infinite;
+}
+
+.stars-loader::before,
+.stars-loader::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #60a5fa;
+    border-bottom-color: #60a5fa;
+    animation: rotate3d 2s linear infinite reverse;
+}
+
+.stars-loader::after {
+    transform: rotateX(90deg);
+    border-top-color: #1e3a8a;
+    border-bottom-color: #1e3a8a;
+}
+
+@keyframes rotate3d {
+    from { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    to { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+/* ===== App Container ===== */
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    grid-template-rows: 70px 1fr;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+}
+
+.app-container.visible {
+    opacity: 1;
+}
+
+/* ===== Header ===== */
+.header {
+    grid-column: 1 / -1;
+    background: linear-gradient(180deg, rgba(10, 10, 26, 0.95) 0%, rgba(0, 0, 0, 0.8) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.main-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #60a5fa, #1e3a8a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+}
+
+/* ===== 3D Sky Container ===== */
+.sky-container {
+    position: relative;
+    background: #000000;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.sky-container:active {
+    cursor: grabbing;
+}
+
+/* ===== View Controls ===== */
+.view-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.view-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(30, 58, 138, 0.3);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 50%;
+    color: var(--accent-light);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    backdrop-filter: blur(10px);
+}
+
+.view-btn:hover {
+    background: rgba(96, 165, 250, 0.4);
+    border-color: var(--accent-light);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+}
+
+/* ===== Camera Info ===== */
+.camera-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.info-label {
+    color: var(--text-secondary);
+    margin-right: 15px;
+}
+
+.info-value {
+    color: var(--accent-light);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    background: linear-gradient(180deg, rgba(10, 10, 26, 0.95) 0%, rgba(0, 0, 0, 0.9) 100%);
+    border-left: 1px solid rgba(96, 165, 250, 0.2);
+    padding: 25px;
+    overflow-y: auto;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== View Presets ===== */
+.view-presets {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(30, 58, 138, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 10px;
+}
+
+.view-presets h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--accent-light);
+}
+
+.preset-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-family: inherit;
+}
+
+.preset-btn:hover {
+    background: rgba(96, 165, 250, 0.3);
+    transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
+}
+
+/* ===== Settings Button ===== */
+.settings-btn {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: rgba(30, 58, 138, 0.8);
+    border: 2px solid rgba(96, 165, 250, 0.5);
+    border-radius: 50%;
+    color: var(--accent-light);
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(96, 165, 250, 0.4);
+    transition: all var(--transition-speed);
+    z-index: 100;
+}
+
+.settings-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 6px 30px rgba(96, 165, 250, 0.6);
+}
+
+/* ===== Settings Modal ===== */
+.settings-content {
+    max-width: 500px;
+}
+
+.settings-group {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(30, 58, 138, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 10px;
+}
+
+.settings-group h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--accent-light);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.setting-item.checkbox {
+    cursor: pointer;
+}
+
+.setting-item input[type="range"] {
+    width: 150px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    background: rgba(96, 165, 250, 0.2);
+    border-radius: 5px;
+    outline: none;
+    margin: 0 15px;
+}
+
+.setting-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+}
+
+.setting-item input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+}
+
+.setting-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* ===== 3D Tooltip ===== */
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 1000;
+    font-size: 14px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    max-width: 300px;
+    transform: translateY(-10px);
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+}
+
+.tooltip.hidden {
+    display: none;
+}
+
+.tooltip h4 {
+    color: var(--accent-light);
+    margin-bottom: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+}
+
+.tooltip p {
+    margin: 5px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.tooltip .star-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.tooltip .star-info span {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.tooltip .star-info strong {
+    color: var(--accent-light);
+}
+
+/* ===== Enhanced Modal for 3D ===== */
+.modal {
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(10, 10, 26, 0.98) 0%, rgba(0, 0, 0, 0.95) 100%);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 100px rgba(96, 165, 250, 0.2);
+    animation: modalSlide3D 0.4s ease-out;
+}
+
+@keyframes modalSlide3D {
+    from {
+        transform: translateY(-50px) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===== Control Info Panel ===== */
+.control-info {
+    background: rgba(96, 165, 250, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.control-info p {
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.control-info strong {
+    color: var(--text-primary);
+    display: inline-block;
+    min-width: 140px;
+}
+
+/* ===== Enhanced Constellation List for 3D ===== */
+.constellation-item {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.2) 0%, rgba(96, 165, 250, 0.1) 100%);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.constellation-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.constellation-item:hover::before {
+    left: 100%;
+}
+
+.constellation-item.highlighted {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.4) 0%, rgba(30, 58, 138, 0.3) 100%);
+    box-shadow: 0 0 30px rgba(96, 165, 250, 0.5),
+                inset 0 0 20px rgba(96, 165, 250, 0.2);
+    animation: pulse3D 2s ease-in-out infinite;
+}
+
+@keyframes pulse3D {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(96, 165, 250, 0.5);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 50px rgba(96, 165, 250, 0.8);
+    }
+}
+
+/* ===== 3D Effects ===== */
+.glow-effect {
+    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.8));
+}
+
+.star-halo {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    pointer-events: none;
+    animation: starPulse 2s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+/* ===== Fullscreen Styles ===== */
+.fullscreen .header {
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+}
+
+.fullscreen .sidebar {
+    transform: translateX(100%);
+    transition: transform 0.3s;
+}
+
+.fullscreen .sky-container {
+    grid-column: 1 / -1;
+}
+
+.fullscreen .help-btn,
+.fullscreen .settings-btn {
+    opacity: 0.3;
+}
+
+.fullscreen .help-btn:hover,
+.fullscreen .settings-btn:hover {
+    opacity: 1;
+}
+
+/* ===== Performance Monitor ===== */
+.fps-counter {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #4ade80;
+    z-index: 100;
+}
+
+/* ===== Loading States ===== */
+.loading-stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.loading-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: loadingStar 3s linear infinite;
+}
+
+@keyframes loadingStar {
+    from {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== Responsive 3D Design ===== */
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: fixed;
+        right: 0;
+        top: 70px;
+        width: 320px;
+        height: calc(100% - 70px);
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        z-index: 200;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: fixed;
+        right: 20px;
+        top: 85px;
+        width: 40px;
+        height: 40px;
+        background: var(--accent-color);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 201;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 20px;
+    }
+    
+    .control-btn .btn-text {
+        display: none;
+    }
+    
+    .view-controls {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .view-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+    
+    .camera-info {
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        font-size: 11px;
+    }
+}
+
+/* ===== WebGL Canvas Optimization ===== */
+canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    touch-action: none;
+}
+
+/* ===== Color Themes for Constellations ===== */
+.constellation-theme-zodiac {
+    --constellation-color: #ffd700;
+}
+
+.constellation-theme-northern {
+    --constellation-color: #00bfff;
+}
+
+.constellation-theme-southern {
+    --constellation-color: #ff6347;
+}
+
+/* ===== Special 3D Animations ===== */
+@keyframes float3D {
+    0%, 100% {
+        transform: translateY(0) translateZ(0);
+    }
+    50% {
+        transform: translateY(-10px) translateZ(10px);
+    }
+}
+
+.floating {
+    animation: float3D 3s ease-in-out infinite;
+}
+
+/* ===== Debug Mode ===== */
+.debug-mode .sky-container {
+    border: 2px solid red;
+}
+
+.debug-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #4ade80;
+    pointer-events: none;
+}

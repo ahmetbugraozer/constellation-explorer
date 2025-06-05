@@ -599,6 +599,29 @@ body {
     color: var(--accent-light);
 }
 
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    transition: all var(--transition-speed);
+}
+
+.back-button:hover {
+    background: rgba(77, 213, 237, 0.2);
+    border-color: var(--accent-light);
+    transform: translateY(-50%) translateX(-5px);
+}
+
 /* ===== Help Button ===== */
 .help-btn {
     position: fixed;

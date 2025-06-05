@@ -1,0 +1,296 @@
+:root {
+    --primary-bg: #0a0a0f;
+    --card-bg: #1a1a2e;
+    --accent-2d: #4a7c7e;
+    --accent-3d: #1e3a8a;
+    --accent-light: #6dd5ed;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Mono', monospace;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Animated background stars */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.stars::before,
+.stars::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    box-shadow: 
+        100px 100px white, 200px 150px white, 300px 50px white,
+        400px 300px white, 500px 200px white, 600px 400px white,
+        700px 100px white, 800px 300px white, 900px 250px white,
+        1000px 150px white, 1100px 350px white, 1200px 200px white;
+    animation: animateStars 50s linear infinite;
+}
+
+.stars::after {
+    width: 1px;
+    height: 1px;
+    animation-duration: 100s;
+    box-shadow: 
+        150px 150px white, 250px 250px white, 350px 350px white,
+        450px 450px white, 550px 50px white, 650px 150px white,
+        750px 250px white, 850px 350px white, 950px 450px white;
+}
+
+@keyframes animateStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100vh); }
+}
+
+.container {
+    max-width: 1200px;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent-light), var(--accent-2d));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 20px rgba(109, 213, 237, 0.5)); }
+    to { filter: drop-shadow(0 0 30px rgba(109, 213, 237, 0.8)); }
+}
+
+.title-icon {
+    font-size: 36px;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+.subtitle {
+    font-size: 20px;
+    color: var(--text-secondary);
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mode-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.mode-card {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(10, 10, 15, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: fadeInScale 0.8s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mode-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+#mode2d:hover {
+    border-color: var(--accent-2d);
+    box-shadow: 0 20px 40px rgba(74, 124, 126, 0.3);
+}
+
+#mode3d:hover {
+    border-color: var(--accent-3d);
+    box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+}
+
+.mode-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+#mode2d .mode-icon {
+    animation-delay: 0s;
+}
+
+#mode3d .mode-icon {
+    animation-delay: 1.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.mode-card h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--accent-light);
+}
+
+.mode-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.mode-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.mode-features li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.mode-features li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+}
+
+.mode-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, var(--accent-2d), var(--accent-3d));
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#mode2d .mode-button {
+    background: linear-gradient(135deg, var(--accent-2d), #6dd5ed);
+}
+
+#mode3d .mode-button {
+    background: linear-gradient(135deg, var(--accent-3d), #60a5fa);
+}
+
+.mode-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(109, 213, 237, 0.4);
+}
+
+.main-footer {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.main-footer p {
+    margin: 10px 0;
+}
+
+kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent-light);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .mode-selection {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .title {
+        font-size: 36px;
+    }
+    
+    .mode-card {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .title {
+        font-size: 28px;
+    }
+    
+    .mode-icon {
+        font-size: 60px;
+    }
+    
+    .mode-card h2 {
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "constellation-explorer",
+  "version": "1.0.0",
+  "description": "Interactive constellation explorer with 2D and 3D viewing modes",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 || python3 -m http.server 8000",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "constellation",
+    "astronomy",
+    "stars",
+    "interactive",
+    "3D",
+    "2D"
+  ],
+  "author": "ahmetbugraozer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahmetbugraozer/constellation-explorer.git"
+  }
+}

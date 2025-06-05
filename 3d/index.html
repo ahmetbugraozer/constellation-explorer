@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Interactive Night Sky - Constellation Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="stars-loader"></div>
+            <h2>Preparing your 3D journey to the stars...</h2>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="../index.html" class="back-button" title="Back to Home">
+                <span>←</span> Home
+            </a>
+            <h1 class="main-title">
+                <span class="title-icon">✨</span>
+                3D Constellation Explorer
+                <span class="title-icon">🌟</span>
+            </h1>
+            <div class="controls">
+                <button id="toggleLines" class="control-btn active" title="Toggle Constellation Lines">
+                    <span class="btn-icon">⚡</span>
+                    <span class="btn-text">Lines</span>
+                </button>
+                <button id="toggleNames" class="control-btn active" title="Toggle Constellation Names">
+                    <span class="btn-icon">📝</span>
+                    <span class="btn-text">Names</span>
+                </button>
+                <button id="toggleStars" class="control-btn active" title="Toggle Background Stars">
+                    <span class="btn-icon">⭐</span>
+                    <span class="btn-text">Stars</span>
+                </button>
+                <button id="toggleAtmosphere" class="control-btn" title="Toggle Atmosphere">
+                    <span class="btn-icon">🌍</span>
+                    <span class="btn-text">Atmosphere</span>
+                </button>
+                <button id="autoRotate" class="control-btn" title="Auto Rotate">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Rotate</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 3D Sky Container -->
+        <div class="sky-container" id="skyContainer">
+            <div id="tooltip" class="tooltip hidden"></div>
+            
+            <!-- View Controls -->
+            <div class="view-controls">
+                <button class="view-btn" data-view="north" title="North View">N</button>
+                <button class="view-btn" data-view="south" title="South View">S</button>
+                <button class="view-btn" data-view="east" title="East View">E</button>
+                <button class="view-btn" data-view="west" title="West View">W</button>
+                <button class="view-btn" data-view="zenith" title="Zenith View">Z</button>
+            </div>
+
+            <!-- Camera Controls Info -->
+            <div class="camera-info">
+                <div class="info-item">
+                    <span class="info-label">Azimuth:</span>
+                    <span class="info-value" id="azimuth">0°</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Altitude:</span>
+                    <span class="info-value" id="altitude">0°</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">FOV:</span>
+                    <span class="info-value" id="fov">60°</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="sidebar-title">🌌 3D Constellations</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search constellations..." class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="constellation-list" id="constellationList">
+                <!-- Constellation items will be dynamically added here -->
+            </div>
+
+            <div class="info-panel">
+                <h3>🎮 3D Controls</h3>
+                <div class="control-info">
+                    <p><strong>🖱️ Left Click + Drag:</strong> Rotate view</p>
+                    <p><strong>🖱️ Right Click + Drag:</strong> Pan camera</p>
+                    <p><strong>🖱️ Scroll:</strong> Zoom in/out</p>
+                    <p><strong>📱 Touch:</strong> Pinch to zoom</p>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <h3>📊 Sky Statistics</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Visible Stars:</span>
+                        <span class="stat-value" id="starCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Constellations:</span>
+                        <span class="stat-value" id="constellationCount">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Render FPS:</span>
+                        <span class="stat-value" id="fps">60</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-presets">
+                <h3>🎯 View Presets</h3>
+                <button class="preset-btn" data-preset="milkyway">Milky Way Core</button>
+                <button class="preset-btn" data-preset="polaris">North Star</button>
+                <button class="preset-btn" data-preset="zodiac">Zodiac Band</button>
+                <button class="preset-btn" data-preset="full">Full Sky</button>
+            </div>
+        </aside>
+
+        <!-- Constellation Detail Modal -->
+        <div id="constellationModal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="closeModal">&times;</button>
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalBody" class="modal-body">
+                    <!-- Content will be dynamically added -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Button -->
+        <button id="helpBtn" class="help-btn" title="Help & Instructions">
+            <span>?</span>
+        </button>
+
+        <!-- Settings Button -->
+        <button id="settingsBtn" class="settings-btn" title="Settings">
+            <span>⚙️</span>
+        </button>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content settings-content">
+                <button class="modal-close" id="closeSettings">&times;</button>
+                <h2 class="modal-title">⚙️ 3D Settings</h2>
+                
+                <div class="settings-group">
+                    <h3>Visual Quality</h3>
+                    <label class="setting-item">
+                        <span>Star Count:</span>
+                        <input type="range" id="starCountSlider" min="1000" max="10000" value="5000" step="500">
+                        <span id="starCountValue">5000</span>
+                    </label>
+                    <label class="setting-item">
+                        <span>Star Size:</span>
+                        <input type="range" id="starSizeSlider" min="0.5" max="3" value="1.5" step="0.1">
+                        <span id="starSizeValue">1.5</span>
+                    </label>
+                    <label class="setting-item">
+                        <span>Line Width:</span>
+                        <input type="range" id="lineWidthSlider" min="1" max="5" value="2" step="0.5">
+                        <span id="lineWidthValue">2</span>
+                    </label>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Camera Settings</h3>
+                    <label class="setting-item">
+                        <span>Field of View:</span>
+                        <input type="range" id="fovSlider" min="30" max="120" value="60" step="5">
+                        <span id="fovValue">60°</span>
+                    </label>
+                    <label class="setting-item">
+                        <span>Rotation Speed:</span>
+                        <input type="range" id="rotationSpeedSlider" min="0.1" max="2" value="0.5" step="0.1">
+                        <span id="rotationSpeedValue">0.5</span>
+                    </label>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Effects</h3>
+                    <label class="setting-item checkbox">
+                        <input type="checkbox" id="glowEffect" checked>
+                        <span>Star Glow Effect</span>
+                    </label>
+                    <label class="setting-item checkbox">
+                        <input type="checkbox" id="twinkleEffect" checked>
+                        <span>Twinkling Stars</span>
+                    </label>
+                    <label class="setting-item checkbox">
+                        <input type="checkbox" id="milkyWayEffect">
+                        <span>Milky Way Background</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal hidden">
+            <div class="modal-content help-content">
+                <button class="modal-close" id="closeHelp">&times;</button>
+                <h2 class="modal-title">🌟 3D Navigation Guide</h2>
+                <div class="help-section">
+                    <h3>Mouse Controls</h3>
+                    <ul>
+                        <li><strong>Left Click & Drag:</strong> Rotate the celestial sphere</li>
+                        <li><strong>Right Click & Drag:</strong> Pan the view</li>
+                        <li><strong>Scroll Wheel:</strong> Zoom in/out</li>
+                        <li><strong>Double Click Star:</strong> Focus on star</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Touch Controls</h3>
+                    <ul>
+                        <li><strong>One Finger Drag:</strong> Rotate view</li>
+                        <li><strong>Two Finger Drag:</strong> Pan view</li>
+                        <li><strong>Pinch:</strong> Zoom in/out</li>
+                        <li><strong>Tap Star:</strong> View information</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>Keyboard Shortcuts</h3>
+                    <ul>
+                        <li><strong>WASD/Arrow Keys:</strong> Rotate view</li>
+                        <li><strong>Q/E:</strong> Roll camera</li>
+                        <li><strong>+/-:</strong> Zoom in/out</li>
+                        <li><strong>Space:</strong> Reset view</li>
+                        <li><strong>R:</strong> Toggle auto-rotation</li>
+                        <li><strong>F:</strong> Toggle fullscreen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+                
