@@ -20,23 +20,24 @@ An interactive web application for exploring constellations in both 2D and 3D vi
 
 ## Project Structure
 
+```
 constellation-explorer/
-├── index.html # Main landing page
+├── index.html              # Main landing page
 ├── css/
-│ └── landing.css # Landing page styles
+│   └── landing.css         # Landing page styles
 ├── js/
-│ └── landing.js # Landing page scripts
+│   └── landing.js          # Landing page scripts
 ├── 2d/
-│ ├── index.html # 2D viewer
-│ ├── style.css # 2D styles
-│ └── script.js # 2D functionality
+│   ├── index.html          # 2D viewer
+│   ├── style.css           # 2D styles
+│   └── script.js           # 2D functionality
 ├── 3d/
-│ ├── index.html # 3D viewer
-│ ├── style.css # 3D styles
-│ └── script.js # 3D functionality
+│   ├── index.html          # 3D viewer
+│   ├── style.css           # 3D styles
+│   └── script.js           # 3D functionality
 └── shared/
-└── config.js # Shared constellation data
-
+    └── config.js           # Shared constellation data
+```
 
 ## Getting Started
 
@@ -54,7 +55,6 @@ python -m http.server 8000
 
 # Using Node.js
 npx serve .
-
 ```
 
 Then navigate to http://localhost:8000
