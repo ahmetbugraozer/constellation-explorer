@@ -397,6 +397,7 @@ body {
 .constellation-name {
     font-weight: bold;
     color: var(--accent-light);
+    text-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
 }
 
 .constellation-info {
@@ -977,11 +978,25 @@ body {
     opacity: 1;
 }
 
+/* ===== Enhanced 3D Text Rendering ===== */
+canvas {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
 /* ===== Performance Fix for 3D Canvas ===== */
 #skyContainer {
     width: 100%;
     height: 100%;
     position: relative;
+}
+
+#skyContainer canvas {
+    image-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== Fix Modal Z-index Issues ===== */

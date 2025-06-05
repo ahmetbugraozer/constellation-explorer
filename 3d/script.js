@@ -371,30 +371,40 @@ function loadConstellations3D() {
         if (settings.showNames) {
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
-            canvas.width = 512;
-            canvas.height = 64;
+            canvas.width = 4096;
+            canvas.height = 512;
             
             context.fillStyle = 'rgba(0, 0, 0, 0)';
             context.fillRect(0, 0, canvas.width, canvas.height);
             
-            context.font = 'Bold 40px Orbitron';
-            context.fillStyle = 'rgba(96, 165, 250, 0.9)';
+            context.font = 'Bold 512px Orbitron';
+            context.fillStyle = 'rgba(96, 165, 250, 1)';
+            context.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+            context.lineWidth = 3;
             context.textAlign = 'center';
             context.textBaseline = 'middle';
+            
+            // Add text stroke for better visibility
+            context.strokeText(constellation.name, canvas.width / 2, canvas.height / 2);
             context.fillText(constellation.name, canvas.width / 2, canvas.height / 2);
             
             const texture = new THREE.CanvasTexture(canvas);
+            texture.generateMipmaps = false;
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            
             const spriteMaterial = new THREE.SpriteMaterial({
                 map: texture,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.9,
+                alphaTest: 0.1
             });
             
             const sprite = new THREE.Sprite(spriteMaterial);
             const centerPosition = getCenterPosition(stars3D);
             sprite.position.copy(centerPosition);
-            sprite.position.multiplyScalar(1.05);
-            sprite.scale.set(100, 12.5, 1);
+            sprite.position.multiplyScalar(1.08);
+            sprite.scale.set(200, 25, 1);
             sprite.name = `${constellation.name}_label`;
             
             group.add(sprite);
