@@ -2,6 +2,8 @@
 
 An interactive web application for exploring constellations in both 2D and 3D views.
 
+![home](https://github.com/user-attachments/assets/fd66142f-a948-4eb2-b0e0-49aa6b9d02ac)
+
 ## Features
 
 ### 2D Mode
@@ -10,6 +12,8 @@ An interactive web application for exploring constellations in both 2D and 3D vi
 - Constellation lines and labels
 - Search functionality
 - Star information tooltips
+
+
 
 ### 3D Mode
 - 360° spherical navigation
