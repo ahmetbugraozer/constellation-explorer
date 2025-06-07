@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 Mandelbrot Universe - Interactive Explorer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="universe"></canvas>
+    
+    <!-- Modern control panel -->
+    <div class="control-panel">
+        <div class="panel-header">
+            <h2>🌌 Mandelbrot Explorer</h2>
+            <button class="toggle-panel" id="togglePanel">−</button>
+        </div>
+        
+        <div class="panel-content" id="panelContent">
+            <div class="control-group">
+                <h3>📊 Status Information</h3>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <label>Zoom:</label>
+                        <span id="zoomLevel" class="value">1.00x</span>
+                    </div>
+                    <div class="status-item">
+                        <label>X Coordinate:</label>
+                        <span id="centerX" class="value">0.0000</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Y Coordinate:</label>
+                        <span id="centerY" class="value">0.0000</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Iterations:</label>
+                        <span id="iterations" class="value">200</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Performance:</label>
+                        <span id="renderTime" class="value">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>⚙️ Settings</h3>
+                <div class="slider-container">
+                    <label>Detail Level:</label>
+                    <input type="range" id="iterationSlider" min="50" max="1000" value="200" step="50">
+                </div>
+                <div class="slider-container">
+                    <label>Color Intensity:</label>
+                    <input type="range" id="colorIntensity" min="1" max="10" value="3" step="1">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>🎮 Quick Access</h3>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="resetView()">🏠 Home View</button>
+                    <button class="action-btn" onclick="goToInteresting(1)">⚡ Interesting Area 1</button>
+                    <button class="action-btn" onclick="goToInteresting(2)">🌀 Interesting Area 2</button>
+                    <button class="action-btn" onclick="goToInteresting(3)">🎯 Interesting Area 3</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Advanced instructions -->
+    <div class="instructions-panel">
+        <div class="instructions-header">
+            <h3>🎮 Navigation Guide</h3>
+        </div>
+        <div class="instructions-content">
+            <div class="instruction-item">
+                <span class="key">🖱️ Mouse Wheel</span>
+                <span class="desc">Zoom In/Out</span>
+            </div>
+            <div class="instruction-item">
+                <span class="key">🖱️ Left Click + Drag</span>
+                <span class="desc">Pan View</span>
+            </div>
+            <div class="instruction-item">
+                <span class="key">🖱️ Double Click</span>
+                <span class="desc">Quick Zoom</span>
+            </div>
+            <div class="instruction-item">
+                <span class="key">⌨️ R</span>
+                <span class="desc">Reset</span>
+            </div>
+            <div class="instruction-item">
+                <span class="key">⌨️ F</span>
+                <span class="desc">Fullscreen</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading and notifications -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>🌌 Exploring the Universe...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

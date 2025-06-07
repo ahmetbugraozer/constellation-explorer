@@ -4,6 +4,8 @@ document.addEventListener('keydown', (e) => {
         window.location.href = '2d/index.html';
     } else if (e.key === '3') {
         window.location.href = '3d/index.html';
+    } else if (e.key.toLowerCase() === 'm') {
+        window.location.href = 'mandelbrot/index.html';
     }
 });
 
@@ -57,6 +59,11 @@ document.addEventListener('keydown', (e) => {
     konamiCode = konamiCode.slice(-10);
     
     if (konamiCode.join(',') === konamiSequence.join(',')) {
+        // Launch all modes in new tabs
+        window.open('2d/index.html', '_blank');
+        window.open('3d/index.html', '_blank');
+        window.open('mandelbrot/index.html', '_blank');
+        
         document.body.style.animation = 'rainbow 2s linear infinite';
         setTimeout(() => {
             document.body.style.animation = '';

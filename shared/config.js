@@ -193,6 +193,106 @@ const CONSTELLATION_DATA = {
         }
     },
     
+    // Mandelbrot Set configuration
+    mandelbrotConfig: {
+        defaultSettings: {
+            maxIterations: 100,
+            escapeRadius: 2,
+            zoom: 1,
+            centerX: -0.5,
+            centerY: 0,
+            colorScheme: 'cosmic'
+        },
+        
+        colorSchemes: {
+            cosmic: {
+                name: "Cosmic",
+                colors: [
+                    '#000033', '#000066', '#000099', '#0033cc',
+                    '#0066ff', '#3399ff', '#66ccff', '#99ffff',
+                    '#ffffff', '#ffcc99', '#ff9966', '#ff6633',
+                    '#cc3300', '#990000', '#660000', '#330000'
+                ]
+            },
+            nebula: {
+                name: "Nebula",
+                colors: [
+                    '#000000', '#330033', '#660066', '#990099',
+                    '#cc00cc', '#ff33ff', '#ff66cc', '#ff9999',
+                    '#ffcccc', '#ffffff', '#ccffff', '#99ffcc',
+                    '#66ff99', '#33ff66', '#00ff33', '#00cc00'
+                ]
+            },
+            starField: {
+                name: "Star Field",
+                colors: [
+                    '#000011', '#001122', '#002244', '#003366',
+                    '#004488', '#0055aa', '#0066cc', '#2277dd',
+                    '#4488ee', '#6699ff', '#88aaff', '#aabbff',
+                    '#ccddff', '#eeeeff', '#ffffff', '#ffffee'
+                ]
+            },
+            galaxy: {
+                name: "Galaxy",
+                colors: [
+                    '#000000', '#1a0011', '#330022', '#4d0033',
+                    '#660044', '#801a55', '#993366', '#b34d77',
+                    '#cc6688', '#e68099', '#ff99aa', '#ffb3cc',
+                    '#ffccdd', '#ffe6ee', '#ffffff', '#fff0f5'
+                ]
+            }
+        },
+        
+        presetLocations: [
+            {
+                name: "Main Set",
+                x: -0.5,
+                y: 0,
+                zoom: 1,
+                description: "The classic Mandelbrot set view"
+            },
+            {
+                name: "Seahorse Valley",
+                x: -0.75,
+                y: 0.1,
+                zoom: 50,
+                description: "Beautiful seahorse-like patterns"
+            },
+            {
+                name: "Lightning",
+                x: -1.775,
+                y: 0,
+                zoom: 100,
+                description: "Lightning-like fractal branches"
+            },
+            {
+                name: "Spiral Galaxy",
+                x: -0.16,
+                y: 1.04,
+                zoom: 200,
+                description: "Spiral patterns resembling galaxies"
+            },
+            {
+                name: "Mini Mandelbrot",
+                x: -0.1592,
+                y: 1.0378,
+                zoom: 1000,
+                description: "A smaller copy of the main set"
+            }
+        ],
+        
+        keyboardShortcuts: {
+            '+': 'Zoom in',
+            '-': 'Zoom out',
+            'r': 'Reset view',
+            'c': 'Change color scheme',
+            'i': 'Increase iterations',
+            'd': 'Decrease iterations',
+            's': 'Save image',
+            'h': 'Show/hide help'
+        }
+    },
+    
     // Shared utility functions
     utils: {
         // Convert Right Ascension and Declination to Cartesian coordinates
@@ -243,6 +343,77 @@ const CONSTELLATION_DATA = {
                 ra: `${raHours}h ${raMinutes}m`,
                 dec: `${decSign}${decDegrees}° ${decMinutes}'`
             };
+        },
+        
+        // Mandelbrot-specific utilities
+        mandelbrot: {
+            // Calculate Mandelbrot iteration for a point
+            calculatePoint: function(cx, cy, maxIterations) {
+                let x = 0, y = 0;
+                let iteration = 0;
+                
+                while (x * x + y * y <= 4 && iteration < maxIterations) {
+                    const xtemp = x * x - y * y + cx;
+                    y = 2 * x * y + cy;
+                    x = xtemp;
+                    iteration++;
+                }
+                
+                return iteration;
+            },
+            
+            // Convert screen coordinates to complex plane
+            screenToComplex: function(screenX, screenY, width, height, centerX, centerY, zoom) {
+                const scale = 4 / zoom;
+                const cx = centerX + (screenX - width / 2) * scale / width;
+                const cy = centerY - (screenY - height / 2) * scale / height;
+                return { cx, cy };
+            },
+            
+            // Get color from iteration count
+            getColor: function(iteration, maxIterations, colorScheme) {
+                if (iteration === maxIterations) return '#000000';
+                
+                const colors = CONSTELLATION_DATA.mandelbrotConfig.colorSchemes[colorScheme].colors;
+                const colorIndex = Math.floor((iteration / maxIterations) * (colors.length - 1));
+                return colors[colorIndex] || colors[colors.length - 1];
+            },
+            
+            // Smooth coloring function
+            getSmoothColor: function(iteration, maxIterations, zx, zy, colorScheme) {
+                if (iteration === maxIterations) return '#000000';
+                
+                const smoothIteration = iteration + 1 - Math.log(Math.log(Math.sqrt(zx * zx + zy * zy))) / Math.log(2);
+                const colors = CONSTELLATION_DATA.mandelbrotConfig.colorSchemes[colorScheme].colors;
+                const t = smoothIteration / maxIterations;
+                const colorIndex = t * (colors.length - 1);
+                const index1 = Math.floor(colorIndex);
+                const index2 = Math.min(index1 + 1, colors.length - 1);
+                const factor = colorIndex - index1;
+                
+                // Simple color interpolation
+                return this.interpolateColors(colors[index1], colors[index2], factor);
+            },
+            
+            // Simple color interpolation
+            interpolateColors: function(color1, color2, factor) {
+                const hex1 = color1.replace('#', '');
+                const hex2 = color2.replace('#', '');
+                
+                const r1 = parseInt(hex1.substr(0, 2), 16);
+                const g1 = parseInt(hex1.substr(2, 2), 16);
+                const b1 = parseInt(hex1.substr(4, 2), 16);
+                
+                const r2 = parseInt(hex2.substr(0, 2), 16);
+                const g2 = parseInt(hex2.substr(2, 2), 16);
+                const b2 = parseInt(hex2.substr(4, 2), 16);
+                
+                const r = Math.round(r1 + (r2 - r1) * factor);
+                const g = Math.round(g1 + (g2 - g1) * factor);
+                const b = Math.round(b1 + (b2 - b1) * factor);
+                
+                return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            }
         }
     }
 };

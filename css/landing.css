@@ -121,10 +121,11 @@ body {
 }
 
 .mode-selection {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
     margin-bottom: 60px;
+    width: 100%;
 }
 
 .mode-card {
@@ -162,6 +163,39 @@ body {
 #mode3d:hover {
     border-color: var(--accent-3d);
     box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+}
+
+#modeMandelbrot:hover {
+    border-color: #ff8c00;
+    box-shadow: 0 20px 40px rgba(255, 140, 0, 0.3);
+}
+
+#modeMandelbrot .mode-icon {
+    animation-delay: 0.75s;
+}
+
+#modeMandelbrot .mode-button {
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+}
+
+#modeMandelbrot .mode-button:hover {
+    background: linear-gradient(135deg, #ffa500, #ffb347);
+    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+}
+
+/* Updated row layout for three cards */
+.mode-selection {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 60px;
+    width: 100%;
+}
+
+.mode-card {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
 }
 
 .mode-icon {
@@ -264,8 +298,12 @@ kbd {
 /* Responsive Design */
 @media (max-width: 900px) {
     .mode-selection {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 30px;
+    }
+    
+    .mode-card {
+        max-width: 100%;
     }
     
     .title {
