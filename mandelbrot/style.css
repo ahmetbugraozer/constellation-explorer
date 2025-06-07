@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Space Mono', monospace;
     background: radial-gradient(circle at center, #0f0f23, #1a1a2e, #16213e);
     color: #ffffff;
     overflow: hidden;
@@ -34,7 +34,8 @@ body {
     backdrop-filter: blur(20px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    max-width: 350px;
+    max-width: 450px;
+    min-width: 450px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -49,6 +50,7 @@ body {
 .panel-header h2 {
     font-size: 18px;
     font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
     background: linear-gradient(135deg, #66fcf1, #45a049);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -89,6 +91,7 @@ body {
     color: #66fcf1;
     margin-bottom: 15px;
     font-weight: 500;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .status-grid {
@@ -110,12 +113,14 @@ body {
 .status-item label {
     font-size: 11px;
     color: #a0a0a0;
+    font-family: 'Space Mono', monospace;
 }
 
 .status-item .value {
     font-weight: 600;
     color: #66fcf1;
     font-size: 12px;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .slider-container {
@@ -127,6 +132,7 @@ body {
     font-size: 12px;
     color: #a0a0a0;
     margin-bottom: 8px;
+    font-family: 'Space Mono', monospace;
 }
 
 .slider-container input[type="range"] {
@@ -165,6 +171,7 @@ body {
     font-size: 11px;
     transition: all 0.2s ease;
     font-weight: 500;
+    font-family: 'Space Mono', monospace;
 }
 
 .action-btn:hover {
@@ -190,6 +197,7 @@ body {
 .instructions-header h3 {
     padding: 15px 20px;
     font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
     background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -207,16 +215,19 @@ body {
     align-items: center;
     margin-bottom: 8px;
     font-size: 11px;
+    font-family: 'Space Mono', monospace;
 }
 
 .instruction-item .key {
     color: #ff6b6b;
     font-weight: 600;
     min-width: 120px;
+    font-family: 'Space Mono', monospace;
 }
 
 .instruction-item .desc {
     color: #cccccc;
+    font-family: 'Space Mono', monospace;
 }
 
 /* Loading overlay */
@@ -238,11 +249,12 @@ body {
 .loading-content {
     text-align: center;
     color: white;
-    pointer-events: auto; /* Sadece loading content'in kendisi mouse eventlerini alabilir */
+    pointer-events: auto;
     background: rgba(15, 15, 35, 0.9);
     padding: 20px;
     border-radius: 10px;
     border: 1px solid rgba(102, 252, 241, 0.3);
+    font-family: 'Space Mono', monospace;
 }
 
 .loading-spinner {
@@ -287,6 +299,7 @@ body {
     border-radius: 8px;
     font-weight: 600;
     font-size: 14px;
+    font-family: 'Space Mono', monospace;
     transform: translateX(400px);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10000;
@@ -295,6 +308,119 @@ body {
 
 .notification.show {
     transform: translateX(0);
+}
+
+/* ===== Loading Screen ===== */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease-out;
+}
+
+.loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+    color: #ffffff;
+}
+
+.loader-content h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.loader-content p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Space Mono', monospace;
+    animation: fadeInUp 1s ease-out;
+}
+
+.mandelbrot-loader {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 30px;
+    position: relative;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4) border-box;
+    animation: fractalSpin 3s linear infinite;
+}
+
+.mandelbrot-loader::before,
+.mandelbrot-loader::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1) border-box;
+    animation: fractalSpin 2s linear infinite reverse;
+}
+
+.mandelbrot-loader::after {
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+    background: linear-gradient(225deg, #45b7d1, #96ceb4) border-box;
+    animation: fractalSpin 1.5s linear infinite;
+}
+
+@keyframes fractalSpin {
+    from { 
+        transform: rotate(0deg) scale(1);
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+        filter: hue-rotate(180deg);
+    }
+    to { 
+        transform: rotate(360deg) scale(1);
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes glow {
+    from { 
+        text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.3));
+    }
+    to { 
+        text-shadow: 0 0 30px rgba(78, 205, 196, 0.8);
+        filter: drop-shadow(0 0 20px rgba(69, 183, 209, 0.6));
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive tasarım */

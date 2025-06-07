@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌌 Mandelbrot Universe - Interactive Explorer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen Ekleniyor -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="mandelbrot-loader"></div>
+            <h2>🧮 Calculating infinite mathematical beauties...</h2>
+            <p>Exploring the depths of fractal geometry</p>
+        </div>
+    </div>
+
     <canvas id="universe"></canvas>
     
     <!-- Modern control panel -->

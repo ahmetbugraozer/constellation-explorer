@@ -36,6 +36,9 @@ class MandelbrotExplorer {
     }
     
     init() {
+        // Loading ekranını gizle
+        this.hideLoader();
+        
         this.resizeCanvas();
         this.setupOffscreenCanvas();
         if (this.useWorkers) {
@@ -45,6 +48,19 @@ class MandelbrotExplorer {
         this.setupUI();
         this.render();
         this.showNotification("🌌 Welcome to the Mandelbrot Universe!");
+    }
+    
+    hideLoader() {
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.classList.add('fade-out');
+                // Loader tamamen gizlendikten sonra DOM'dan kaldır
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
+            }
+        }, 5000); // 1.5 saniye bekle (diğer modlar gibi)
     }
     
     resizeCanvas() {
@@ -582,4 +598,6 @@ function goToInteresting(region) {
 }
 
 // Initialize the application
-const mandelbrotExplorer = new MandelbrotExplorer();
+document.addEventListener('DOMContentLoaded', () => {
+    new MandelbrotExplorer();
+});
