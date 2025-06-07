@@ -48,6 +48,9 @@ class MandelbrotExplorer {
         this.setupUI();
         this.render();
         this.showNotification("🌌 Welcome to the Mandelbrot Universe!");
+        
+        // Global referansı kaydet
+        window.mandelbrotExplorer = this;
     }
     
     hideLoader() {
@@ -60,7 +63,7 @@ class MandelbrotExplorer {
                     loader.style.display = 'none';
                 }, 800);
             }
-        }, 5000); // 1.5 saniye bekle (diğer modlar gibi)
+        }, 1500); // 1.5 saniye bekle (2D ve 3D modlar gibi)
     }
     
     resizeCanvas() {
@@ -566,11 +569,17 @@ class MandelbrotExplorer {
         ];
         
         const location = locations[region - 1];
+        if (!location) {
+            this.showNotification("❌ Invalid location selected");
+            return;
+        }
+        
         this.centerX = location.x;
         this.centerY = location.y;
         this.zoom = location.zoom;
         this.maxIterations = location.iter;
         
+        // UI'yi güncelle
         document.getElementById("iterationSlider").value = location.iter;
         
         this.render();
@@ -588,16 +597,22 @@ class MandelbrotExplorer {
     }
 }
 
-// Global functions for HTML onclick events
+// Global fonksiyonları tanımla
+let mandelbrotExplorer = null;
+
 function resetView() {
-    mandelbrotExplorer.resetView();
+    if (mandelbrotExplorer) {
+        mandelbrotExplorer.resetView();
+    }
 }
 
 function goToInteresting(region) {
-    mandelbrotExplorer.goToInteresting(region);
+    if (mandelbrotExplorer) {
+        mandelbrotExplorer.goToInteresting(region);
+    }
 }
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
-    new MandelbrotExplorer();
+    mandelbrotExplorer = new MandelbrotExplorer();
 });
