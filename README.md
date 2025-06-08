@@ -2,7 +2,7 @@
 
 An interactive web application for exploring constellations in both 2D and 3D views, plus fractal mathematics exploration with the Mandelbrot Set.
 
-![home](https://github.com/user-attachments/assets/fd66142f-a948-4eb2-b0e0-49aa6b9d02ac)
+![home](https://github.com/user-attachments/assets/58327060-9f5d-4877-b52f-91e66544ac2f)
 
 ## Features
 
@@ -39,6 +39,9 @@ An interactive web application for exploring constellations in both 2D and 3D vi
 - Pre-defined interesting locations
 - Progressive rendering for smooth interaction
 
+![mandelbrot-1](https://github.com/user-attachments/assets/9226901e-643a-491c-bbf7-250d5cfd9fb8)
+
+![mandelbrot-2](https://github.com/user-attachments/assets/e33137b2-c526-4a23-a2a4-7bda3307a22e)
 
 ## Project Structure
 
