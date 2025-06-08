@@ -30,13 +30,12 @@ class MandelbrotExplorer {
         this.adaptiveQuality = true;
         this.renderWorkers = [];
         this.workerPool = [];
-        this.useWorkers = false; // Worker'ları devre dışı bırak geçici olarak
+        this.useWorkers = false;
         
         this.init();
     }
     
     init() {
-        // Loading ekranını gizle
         this.hideLoader();
         
         this.resizeCanvas();
@@ -494,7 +493,6 @@ class MandelbrotExplorer {
     }
     
     calculateViewportBounds(width, height, centerPixelX, centerPixelY) {
-        // Görünen alanı biraz genişletip optimize et
         const padding = 0.1; // %10 padding
         const worldWidth = width / this.zoom;
         const worldHeight = height / this.zoom;
@@ -597,7 +595,6 @@ class MandelbrotExplorer {
     }
 }
 
-// Global fonksiyonları tanımla
 let mandelbrotExplorer = null;
 
 function resetView() {

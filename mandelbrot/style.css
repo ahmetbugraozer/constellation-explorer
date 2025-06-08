@@ -423,7 +423,6 @@ body {
     }
 }
 
-/* Responsive tasarım */
 @media (max-width: 768px) {
     .control-panel {
         top: 10px;
