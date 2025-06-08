@@ -1,11 +1,11 @@
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-    if (e.key === '2') {
+    if (e.key.toLowerCase() === 'm') {
+        window.location.href = 'mandelbrot/index.html';
+    } else if (e.key === '2') {
         window.location.href = '2d/index.html';
     } else if (e.key === '3') {
         window.location.href = '3d/index.html';
-    } else if (e.key.toLowerCase() === 'm') {
-        window.location.href = 'mandelbrot/index.html';
     }
 });
 

@@ -14,6 +14,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Space Mono', monospace;
     background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
@@ -22,7 +26,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Animated background stars */
@@ -67,14 +72,22 @@ body {
 
 .container {
     max-width: 1200px;
+    width: 100%;
     padding: 40px;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .main-header {
     text-align: center;
     margin-bottom: 60px;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .title {
@@ -122,21 +135,30 @@ body {
 
 .mode-selection {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: stretch;
     gap: 30px;
     margin-bottom: 60px;
     width: 100%;
+    max-width: 1200px;
+    flex-shrink: 0;
 }
 
 .mode-card {
     background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(10, 10, 15, 0.9));
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    padding: 40px;
+    padding: 48px !important; /* Force override with !important */
     text-align: center;
     transition: all 0.3s ease;
     animation: fadeInScale 0.8s ease-out;
     backdrop-filter: blur(10px);
+    flex: 1;
+    max-width: 450px;
+    min-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 @keyframes fadeInScale {
@@ -181,21 +203,6 @@ body {
 #modeMandelbrot .mode-button:hover {
     background: linear-gradient(135deg, #ffa500, #ffb347);
     box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
-}
-
-/* Updated row layout for three cards */
-.mode-selection {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    margin-bottom: 60px;
-    width: 100%;
-}
-
-.mode-card {
-    flex: 1;
-    max-width: 500px;
-    min-width: 400px;
 }
 
 .mode-icon {
@@ -280,6 +287,9 @@ body {
 .main-footer {
     text-align: center;
     color: var(--text-secondary);
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
 }
 
 .main-footer p {
@@ -296,28 +306,63 @@ kbd {
 }
 
 /* Responsive Design */
-@media (max-width: 900px) {
-    .mode-selection {
-        flex-direction: column;
-        gap: 30px;
+@media (max-width: 1200px) {
+    .container {
+        padding: 30px;
     }
     
     .mode-card {
-        max-width: 100%;
+        min-width: 280px;
+        max-width: 350px;
+    }
+    
+    .mode-selection {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 900px) {
+    body {
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+    
+    .container {
+        min-height: auto;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+    
+    .mode-selection {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        max-width: 500px;
+    }
+    
+    .mode-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        min-width: auto !important;
+        padding: 36px !important;
     }
     
     .title {
         font-size: 36px;
     }
     
-    .mode-card {
-        padding: 30px;
+    .main-header {
+        margin-bottom: 40px;
+    }
+    
+    .mode-selection {
+        margin-bottom: 40px;
     }
 }
 
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 15px;
     }
     
     .title {
@@ -330,5 +375,41 @@ kbd {
     
     .mode-card h2 {
         font-size: 24px;
+    }
+    
+    .mode-card {
+        padding: 30px !important; /* Force mobile padding */
+    }
+    
+    .main-header {
+        margin-bottom: 30px;
+    }
+    
+    .mode-selection {
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+}
+
+/* Büyük ekranlar için mükemmel ortalama */
+@media (min-height: 800px) and (min-width: 901px) {
+    .container {
+        justify-content: center;
+    }
+    
+    .main-footer {
+        margin-top: 0;
+    }
+}
+
+/* Çok büyük ekranlar için */
+@media (min-width: 1400px) {
+    .mode-selection {
+        gap: 40px;
+    }
+    
+    .mode-card {
+        max-width: 400px !important;
+        padding: 60px !important; /* Force large screen padding */
     }
 }
