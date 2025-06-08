@@ -194,8 +194,8 @@ body {
 
 .mode-card {
     flex: 1;
-    max-width: none;
-    min-width: 0;
+    max-width: 500px;
+    min-width: 400px;
 }
 
 .mode-icon {
