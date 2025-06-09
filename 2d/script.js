@@ -100,6 +100,250 @@ const constellationData = [
             { name: "Delta Cyg", x: 190, y: 90, magnitude: 2.8 }
         ],
         lines: [[0,2], [2,1], [3,2], [2,4]]
+    },
+    {
+        name: "Andromeda",
+        description: "The Princess, chained to a rock as sacrifice",
+        mythology: "Princess Andromeda was saved by Perseus from the sea monster Cetus.",
+        stars: [
+            { name: "Alpheratz", x: 750, y: 200, magnitude: 2.1 },
+            { name: "Mirach", x: 800, y: 220, magnitude: 2.0 },
+            { name: "Almach", x: 850, y: 180, magnitude: 2.1 },
+            { name: "Delta And", x: 770, y: 240, magnitude: 3.3 },
+            { name: "Mu And", x: 880, y: 160, magnitude: 3.9 }
+        ],
+        lines: [[0,1], [1,2], [0,3], [2,4]]
+    },
+    {
+        name: "Perseus",
+        description: "The Hero, slayer of Medusa",
+        mythology: "Perseus rescued Andromeda and slayed the Gorgon Medusa.",
+        stars: [
+            { name: "Mirfak", x: 650, y: 150, magnitude: 1.8 },
+            { name: "Algol", x: 620, y: 180, magnitude: 2.1 },
+            { name: "Epsilon Per", x: 680, y: 170, magnitude: 2.9 },
+            { name: "Zeta Per", x: 700, y: 200, magnitude: 2.9 },
+            { name: "Delta Per", x: 640, y: 140, magnitude: 3.0 }
+        ],
+        lines: [[0,1], [0,2], [0,4], [1,3], [2,3]]
+    },
+    {
+        name: "Lyra",
+        description: "The Harp, instrument of Orpheus",
+        mythology: "The lyre of Orpheus, whose music could charm all living things.",
+        stars: [
+            { name: "Vega", x: 250, y: 80, magnitude: 0.0 },
+            { name: "Sheliak", x: 270, y: 110, magnitude: 3.5 },
+            { name: "Sulafat", x: 280, y: 115, magnitude: 3.2 },
+            { name: "Delta Lyr", x: 290, y: 95, magnitude: 4.3 },
+            { name: "Epsilon Lyr", x: 260, y: 70, magnitude: 4.7 }
+        ],
+        lines: [[0,1], [1,2], [0,3], [0,4]]
+    },
+    {
+        name: "Aquila",
+        description: "The Eagle, Zeus's messenger",
+        mythology: "The eagle that carried Zeus's thunderbolts and abducted Ganymede.",
+        stars: [
+            { name: "Altair", x: 320, y: 250, magnitude: 0.8 },
+            { name: "Tarazed", x: 310, y: 230, magnitude: 2.7 },
+            { name: "Alshain", x: 330, y: 270, magnitude: 3.7 },
+            { name: "Delta Aql", x: 350, y: 280, magnitude: 3.4 },
+            { name: "Lambda Aql", x: 290, y: 290, magnitude: 3.4 }
+        ],
+        lines: [[1,0], [0,2], [0,3], [0,4]]
+    },
+    {
+        name: "Pegasus",
+        description: "The Winged Horse",
+        mythology: "The flying horse born from the blood of Medusa, tamed by Bellerophon.",
+        stars: [
+            { name: "Markab", x: 820, y: 300, magnitude: 2.5 },
+            { name: "Scheat", x: 800, y: 280, magnitude: 2.4 },
+            { name: "Algenib", x: 840, y: 320, magnitude: 2.8 },
+            { name: "Enif", x: 780, y: 340, magnitude: 2.4 },
+            { name: "Homam", x: 810, y: 310, magnitude: 3.4 }
+        ],
+        lines: [[0,1], [1,2], [2,3], [3,0], [0,4]]
+    },
+    {
+        name: "Taurus",
+        description: "The Bull, with the bright star Aldebaran",
+        mythology: "Zeus disguised as a bull to abduct Europa.",
+        stars: [
+            { name: "Aldebaran", x: 500, y: 250, magnitude: 0.9 },
+            { name: "Elnath", x: 480, y: 220, magnitude: 1.7 },
+            { name: "Alcyone", x: 520, y: 230, magnitude: 2.9 },
+            { name: "Maia", x: 525, y: 235, magnitude: 3.9 },
+            { name: "Merope", x: 530, y: 240, magnitude: 4.1 }
+        ],
+        lines: [[0,1], [0,2], [2,3], [3,4]]
+    },
+    {
+        name: "Gemini",
+        description: "The Twins, Castor and Pollux",
+        mythology: "The twin brothers, one mortal and one immortal, sharing immortality.",
+        stars: [
+            { name: "Pollux", x: 380, y: 300, magnitude: 1.1 },
+            { name: "Castor", x: 360, y: 290, magnitude: 1.6 },
+            { name: "Alhena", x: 350, y: 330, magnitude: 1.9 },
+            { name: "Wasat", x: 370, y: 315, magnitude: 3.5 },
+            { name: "Mebsuta", x: 340, y: 305, magnitude: 3.0 }
+        ],
+        lines: [[0,1], [0,2], [1,4], [2,3], [3,4]]
+    },
+    {
+        name: "Cancer",
+        description: "The Crab, home to the Beehive Cluster",
+        mythology: "The crab that pinched Hercules during his fight with the Hydra.",
+        stars: [
+            { name: "Altarf", x: 320, y: 350, magnitude: 3.5 },
+            { name: "Al Tarf", x: 300, y: 340, magnitude: 4.2 },
+            { name: "Asellus Borealis", x: 310, y: 330, magnitude: 4.7 },
+            { name: "Asellus Australis", x: 315, y: 345, magnitude: 3.9 },
+            { name: "Acubens", x: 330, y: 360, magnitude: 4.2 }
+        ],
+        lines: [[0,1], [1,2], [2,3], [3,4], [4,0]]
+    },
+    {
+        name: "Virgo",
+        description: "The Virgin, holding an ear of wheat (Spica)",
+        mythology: "Associated with harvest goddesses like Ceres and Persephone.",
+        stars: [
+            { name: "Spica", x: 220, y: 420, magnitude: 1.0 },
+            { name: "Zavijava", x: 180, y: 380, magnitude: 3.6 },
+            { name: "Porrima", x: 200, y: 400, magnitude: 2.7 },
+            { name: "Minelauva", x: 160, y: 360, magnitude: 3.4 },
+            { name: "Vindemiatrix", x: 170, y: 370, magnitude: 2.9 }
+        ],
+        lines: [[1,2], [2,0], [2,3], [3,4]]
+    },
+    {
+        name: "Libra",
+        description: "The Scales of Justice",
+        mythology: "The scales held by Astraea, goddess of justice.",
+        stars: [
+            { name: "Zubenelgenubi", x: 280, y: 460, magnitude: 2.7 },
+            { name: "Zubeneschamali", x: 320, y: 440, magnitude: 2.6 },
+            { name: "Zubenelakrab", x: 340, y: 480, magnitude: 3.9 },
+            { name: "Brachium", x: 310, y: 470, magnitude: 3.3 }
+        ],
+        lines: [[0,1], [1,2], [1,3]]
+    },
+    {
+        name: "Sagittarius",
+        description: "The Archer, pointing toward the galactic center",
+        mythology: "Chiron the centaur, wise teacher of heroes.",
+        stars: [
+            { name: "Kaus Australis", x: 450, y: 520, magnitude: 1.8 },
+            { name: "Nunki", x: 480, y: 500, magnitude: 2.0 },
+            { name: "Ascella", x: 500, y: 510, magnitude: 2.6 },
+            { name: "Kaus Media", x: 460, y: 510, magnitude: 2.7 },
+            { name: "Kaus Borealis", x: 470, y: 490, magnitude: 2.8 },
+            { name: "Albaldah", x: 520, y: 530, magnitude: 2.8 }
+        ],
+        lines: [[0,3], [3,4], [4,1], [1,2], [2,5], [3,0]]
+    },
+    {
+        name: "Capricornus",
+        description: "The Sea Goat, half goat half fish",
+        mythology: "Pan transformed into a goat-fish to escape the monster Typhon.",
+        stars: [
+            { name: "Deneb Algedi", x: 580, y: 480, magnitude: 2.9 },
+            { name: "Dabih", x: 550, y: 470, magnitude: 3.1 },
+            { name: "Nashira", x: 570, y: 490, magnitude: 3.7 },
+            { name: "Algedi", x: 540, y: 460, magnitude: 3.6 }
+        ],
+        lines: [[3,1], [1,2], [2,0]]
+    },
+    {
+        name: "Aquarius",
+        description: "The Water Bearer, pouring celestial waters",
+        mythology: "Ganymede, cupbearer to the gods, or Deucalion of the great flood.",
+        stars: [
+            { name: "Sadalsuud", x: 720, y: 450, magnitude: 2.9 },
+            { name: "Sadalmelik", x: 750, y: 430, magnitude: 3.0 },
+            { name: "Sadachbia", x: 700, y: 460, magnitude: 3.8 },
+            { name: "Albali", x: 680, y: 480, magnitude: 3.8 },
+            { name: "Ancha", x: 770, y: 440, magnitude: 4.2 }
+        ],
+        lines: [[0,1], [0,2], [2,3], [1,4]]
+    },
+    {
+        name: "Pisces",
+        description: "The Fishes, swimming in opposite directions",
+        mythology: "Aphrodite and Eros transformed into fish to escape Typhon.",
+        stars: [
+            { name: "Alrescha", x: 900, y: 380, magnitude: 3.8 },
+            { name: "Fum al Samakah", x: 880, y: 360, magnitude: 4.5 },
+            { name: "Delta Psc", x: 890, y: 370, magnitude: 4.4 },
+            { name: "Epsilon Psc", x: 910, y: 390, magnitude: 4.3 },
+            { name: "Gamma Psc", x: 920, y: 385, magnitude: 3.7 }
+        ],
+        lines: [[1,2], [2,3], [3,0], [0,4]]
+    },
+    {
+        name: "Aries",
+        description: "The Ram with the Golden Fleece",
+        mythology: "The ram that carried Phrixus to safety, its fleece sought by Jason.",
+        stars: [
+            { name: "Hamal", x: 950, y: 250, magnitude: 2.0 },
+            { name: "Sheratan", x: 930, y: 260, magnitude: 2.6 },
+            { name: "Mesarthim", x: 925, y: 270, magnitude: 3.9 },
+            { name: "41 Ari", x: 970, y: 240, magnitude: 3.6 }
+        ],
+        lines: [[0,1], [1,2], [0,3]]
+    },
+    {
+        name: "Draco",
+        description: "The Dragon wrapped around the north pole",
+        mythology: "Ladon, the dragon that guarded the golden apples.",
+        stars: [
+            { name: "Thuban", x: 350, y: 50, magnitude: 3.7 },
+            { name: "Etamin", x: 380, y: 80, magnitude: 2.2 },
+            { name: "Rastaban", x: 360, y: 90, magnitude: 2.8 },
+            { name: "Altais", x: 320, y: 40, magnitude: 3.1 },
+            { name: "Aldhibah", x: 340, y: 60, magnitude: 3.0 }
+        ],
+        lines: [[0,4], [4,3], [0,1], [1,2]]
+    },
+    {
+        name: "Hercules",
+        description: "The Hero kneeling with club raised",
+        mythology: "The mighty hero who completed twelve labors.",
+        stars: [
+            { name: "Kornephoros", x: 280, y: 120, magnitude: 2.8 },
+            { name: "Zeta Her", x: 260, y: 100, magnitude: 2.8 },
+            { name: "Pi Her", x: 270, y: 90, magnitude: 3.2 },
+            { name: "Eta Her", x: 290, y: 85, magnitude: 3.5 },
+            { name: "Delta Her", x: 300, y: 130, magnitude: 3.1 }
+        ],
+        lines: [[0,1], [1,2], [2,3], [0,4]]
+    },
+    {
+        name: "Boötes",
+        description: "The Herdsman, following the Great Bear",
+        mythology: "The plowman driving the oxen of the Great Bear around the pole.",
+        stars: [
+            { name: "Arcturus", x: 180, y: 280, magnitude: -0.1 },
+            { name: "Nekkar", x: 200, y: 250, magnitude: 3.5 },
+            { name: "Seginus", x: 190, y: 260, magnitude: 3.0 },
+            { name: "Epsilon Boo", x: 170, y: 290, magnitude: 2.4 },
+            { name: "Muphrid", x: 175, y: 300, magnitude: 2.7 }
+        ],
+        lines: [[0,3], [3,2], [2,1], [0,4]]
+    },
+    {
+        name: "Corona Borealis",
+        description: "The Northern Crown, Ariadne's crown",
+        mythology: "The crown given to Ariadne by Dionysus, placed in the sky.",
+        stars: [
+            { name: "Alphecca", x: 240, y: 180, magnitude: 2.2 },
+            { name: "Nusakan", x: 250, y: 170, magnitude: 3.7 },
+            { name: "Theta CrB", x: 230, y: 175, magnitude: 4.1 },
+            { name: "Beta CrB", x: 235, y: 185, magnitude: 3.7 }
+        ],
+        lines: [[2,3], [3,0], [0,1]]
     }
 ];
 
